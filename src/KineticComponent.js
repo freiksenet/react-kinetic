@@ -88,32 +88,45 @@ var KineticComponentMixin = merge(ReactComponentMixin, {
 
     var propKey;
     var validProp;
+    var eventName;
     var nextProps = this.props;
     var node = this.getKineticNode();
     var nodeName = this.nodeName;
     var validNodes = KineticProperty.getParents[nodeName];
 
     for (propKey in prevProps) {
+      eventName = KineticProperty.getEventName[propKey];
       if (!propCache.hasOwnProperty(propKey)) {
         propCache[propKey] = this._isPropValid(propKey);
       }
       validProp = propCache[propKey];
+
       if (!nextProps.hasOwnProperty(propKey) &&
           prevProps.hasOwnProperty(propKey)) {
-        if (validProp) {
+        if (eventName) {
+          node.off(eventName);
+        }
+        else if (validProp) {
           node[propKey](KineticProperty.getDefaultValueForProperty[propKey]);
         }
       }
     }
 
     for (propKey in nextProps) {
+      eventName = KineticProperty.getEventName[propKey];
       if (!propCache.hasOwnProperty(propKey)) {
         propCache[propKey] = this._isPropValid(propKey);
       }
       validProp = propCache[propKey];
-      if (validProp) {
-        var nextProp = nextProps[propKey];
-        var prevProp = prevProps[propKey];
+
+      var nextProp = nextProps[propKey];
+      var prevProp = prevProps[propKey];
+
+      if (eventName) {
+        node.off(eventName);
+        node.on(eventName, nextProp);
+      }
+      else if (validProp) {
         if (nextProps.hasOwnProperty(propKey) && nextProp !== prevProp) {
           node[propKey](nextProp);
         }

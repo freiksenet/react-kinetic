@@ -27,6 +27,26 @@ var KineticHierarchy = {
   Tag: ['Shape', 'Node']
 };
 
+var KineticEvents = {
+  onMouseOver: "mouseover",
+  onMouseOut: "mouseout",
+  onMouseEnter: "mouseenter",
+  onMouseLeave: "mouseleave",
+  onMouseMove: "mousemove",
+  onMouseDown: "mousedown",
+  onMouseUp: "mouseup",
+  onClick: "click",
+  onDblClick: "dblclick",
+  onDragStar: "dragstart",
+  onDragEnd: "dragend",
+  onTouchStart: "touchstart",
+  onTouchMove: "touchmove",
+  onTouchEnd: "touchend",
+  onTap: "tap",
+  onDblTap: "dbltap",
+  onDragMove: "dragmove"
+};
+
 function addToPropertyConfig (nodeType, propName, defaultValue) {
   KineticPropertyConfig[propName] = {
     type: undefined,
@@ -193,5 +213,6 @@ addToPropertyConfig('Tag', 'cornerRadius', 0);
 
 module.exports = {
   KineticPropertyConfig: KineticPropertyConfig,
-  KineticHierarchy: KineticHierarchy
+  KineticHierarchy: KineticHierarchy,
+  KineticEvents: KineticEvents
 };

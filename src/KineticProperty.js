@@ -6,8 +6,13 @@
  *
  * @param {object} kineticHierarchy should be a object with nodeType as key and
  * list of nodeType parents as values.
+ *
+ * @param {object} kineticEvents should be a object with React (onFoo) event
+ * props and kinetic (foo) events.
  */
-function injectKineticProperties (kineticConfig, kineticHierarchy) {
+function injectKineticProperties (kineticConfig,
+                                  kineticHierarchy,
+                                  kineticEvents) {
   for (var type in kineticHierarchy) {
     var parents = kineticHierarchy[type];
     KineticProperty.getParents[type] = [type].concat(parents);
@@ -24,6 +29,11 @@ function injectKineticProperties (kineticConfig, kineticHierarchy) {
     KineticProperty.getPropertyName[propName] = nodeType;
     KineticProperty.getPropertyType[propName] = propType;
     KineticProperty.getPropertyDefault[propName] = defaultValue;
+  }
+
+  for (var eventName in kineticEvents) {
+    KineticProperty.getEventName[eventName] = kineticEvents[eventName] +
+      "." + "react";
   }
 }
 
@@ -63,7 +73,12 @@ var KineticProperty = {
    * Returns default value for given property.
    * @type: {Object}
    */
-  getPropertyDefault: {}
+  getPropertyDefault: {},
+  /**
+   * Returns Kinetic event name for event property
+   *
+   */
+  getEventName: {}
 };
 
 module.exports = {

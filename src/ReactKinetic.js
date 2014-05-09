@@ -5,7 +5,8 @@ var KineticHierarchy = KineticPropertyConfig.KineticHierarchy;
 
 KineticProperty.injectKineticProperties(
   KineticPropertyConfig.KineticPropertyConfig,
-  KineticHierarchy
+  KineticHierarchy,
+  KineticPropertyConfig.KineticEvents
 );
 
 var KineticStage = require('./KineticStage');
