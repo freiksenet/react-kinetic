@@ -12,6 +12,7 @@
     "browserify": "3.41.x",
     "browserify-shim": "~3.2.0",
     "react": "",
+    "jsxc": "0.1.0",
     "reactify": "0.13.1"
   },
   "devDependencies": {
@@ -19,7 +20,7 @@
   },
   "license": "MIT",
 
-  "main": "fun.js",
+  "main": "react-kinetic.js",
 
   "browserify": {
     "transform": ["reactify", "browserify-shim"]
