@@ -13,8 +13,6 @@ events are supported on them in same way as normal browser events are supported.
 Code from https://github.com/facebook/react-art really helped me to understand
 the inner workings of React to fix that.
 
-Three rectangles are drawn if you `make demo`.
-
 Notes
 -----
 
