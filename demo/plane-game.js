@@ -86,22 +86,51 @@ var spriteAnimations = {
            0, 402, 95, 151,
            0, 201, 95, 151,
            0, 0, 95, 151],
-  fromLeft: [0, 0, 95, 151,
-             0, 201, 95, 151,
-             0, 402, 95, 151,
-             0, 603, 95, 151,
-             0, 804, 95, 151],
   toRight: [0, 1206, 95, 151,
             0, 1407, 95, 151,
             0, 1609, 95, 151,
             0, 1809, 95, 151,
-            145, 0, 95, 151],
-  fromRight: [145, 0, 95, 151,
-              0, 1809, 95, 151,
-              0, 1609, 95, 151,
-              0, 1407, 95, 151,
-              0, 1206, 95, 151]
+            145, 0, 95, 151]
 };
+
+var Ship = React.createClass({
+  getDefaultProps: function () {
+    return {
+      image: SpriteImage,
+      animations: spriteAnimations,
+      frameIndex: 0,
+      animation: 'base',
+      velX: 0
+    };
+  },
+
+  render: function () {
+    var frameStep = this.props.maxSpeed / 5;
+    var animationDirection;
+    var turningFrame;
+    turningFrame = Math.floor(Math.abs(this.props.velX) / frameStep);
+    if (turningFrame > 4) {
+      turningFrame = 4;
+    }
+    if (this.props.velX < 0) {
+      animationDirection = 'toLeft';
+    } else if (this.props.velX > 0) {
+      animationDirection = 'toRight';
+    } else {
+      animationDirection = 'base';
+      turningFrame = 0;
+    }
+
+    return (
+      <Sprite x={this.props.x}
+              y={this.props.y}
+              image={this.props.image}
+              animation={animationDirection}
+              animations={this.props.animations}
+              frameIndex={turningFrame} />
+    );
+  }
+});
 
 var Game = React.createClass({
   getDefaultProps: function () {
@@ -211,30 +240,12 @@ var Game = React.createClass({
   },
 
   render: function () {
-    var frameStep = this.props.shipMaxSpeed / 5;
-    var animationDirection;
-    var turningFrame;
-    turningFrame = Math.floor(Math.abs(this.state.playerVelX) / frameStep);
-    if (turningFrame > 4) {
-      turningFrame = 4;
-    }
-    if (this.state.playerVelX < 0) {
-      animationDirection = 'toLeft';
-    } else if (this.state.playerVelX > 0) {
-      animationDirection = 'toRight';
-    } else {
-      animationDirection = 'base';
-      turningFrame = 0;
-    }
-
     return (
       <Layer>
-        <Sprite x={this.state.playerX}
-                y={this.state.playerY}
-                image={SpriteImage}
-                animation={animationDirection}
-                animations={spriteAnimations}
-                frameIndex={turningFrame} />
+        <Ship x={this.state.playerX}
+              y={this.state.playerY}
+              velX={this.state.playerVelX}
+              maxSpeed={this.props.shipMaxSpeed} />
       </Layer>
     );
   }
