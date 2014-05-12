@@ -22,17 +22,27 @@ $(deps_installed): $(package)
 $(OUT)/react-kinetic.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
 	$(browserify) . $(browserify_flags) -o $@
 
-.PHONY: demo
-demo: $(deps_installed)
-	$(beefy) demo.js --live --browrerify $(browserify) -- $(browserify_flags)
+.PHONY: demo-rectangles
+demo-rectangles: $(deps_installed)
+	$(beefy) demo/plane-game.js --live --browrerify $(browserify) -- $(browserify_flags)
 
-$(OUT)/demo.js: demo.js $(OUT)
-	$(jsxc) $< $@
+.PHONY: demo-plane-game
+demo-plane-game: $(deps_installed)
+	$(beefy) demo/plane-game.js --live --browrerify $(browserify) -- $(browserify_flags)
+
+# Demo dist stuff
+demofiles := $(wildcard demo/*)
+
+$(OUT)/demo: $(demofiles) $(OUT)
+	cp -r demo $@
+	for f in $(OUT)/demo/*.js; do \
+          $(jsxc) $$f $$f; \
+	done
 
 $(OUT)/index.html: index.html $(OUT)
 	cp $< $@
 
-dist: $(OUT)/react-kinetic.js $(OUT)/demo.js $(OUT)/index.html
+dist: $(OUT)/react-kinetic.js $(OUT)/demo $(OUT)/index.html
 
 .PHONY: clean-npm
 clean-npm:
