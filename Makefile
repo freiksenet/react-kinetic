@@ -24,11 +24,11 @@ $(OUT)/react-kinetic.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
 
 .PHONY: demo-rectangles
 demo-rectangles: $(deps_installed)
-	$(beefy) demo/plane-game.js --live --browrerify $(browserify) -- $(browserify_flags)
+	$(beefy) demo/rectangles.js --live --browserify $(browserify) -- $(browserify_flags)
 
 .PHONY: demo-plane-game
 demo-plane-game: $(deps_installed)
-	$(beefy) demo/plane-game.js --live --browrerify $(browserify) -- $(browserify_flags)
+	$(beefy) demo/plane-game.js --live --browserify $(browserify) -- $(browserify_flags)
 
 # Demo dist stuff
 demofiles := $(wildcard demo/*)
