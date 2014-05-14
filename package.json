@@ -3,33 +3,25 @@
   "version": "0.0.1",
   "author": "Mikhail <freiksenet@gmail.com> Novikov",
   "description": "Using KineticJS library with React",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/freiksenet/react-kinetic.git"
   },
   "dependencies": {
-    "lodash": "2.4.x",
-    "browserify": "3.41.x",
-    "browserify-shim": "~3.2.0",
     "react": "",
-    "jsxc": "0.1.0",
-    "reactify": "0.13.1"
+    "kinetic": "5.0.6",
+    "browserify": "3.41.x",
+    "reactify": "0.13.1",
+    "jsxc": "0.10.0"
   },
   "devDependencies": {
     "beefy": "1.1.0"
   },
-  "license": "MIT",
 
-  "main": "react-kinetic.js",
+  "main": "./react-kinetic",
 
   "browserify": {
-    "transform": ["reactify", "browserify-shim"]
-  },
-
-  "browser":  {
-    "kinetic": "./vendor/kinetic-v5.1.0.js"
-  },
-  "browserify-shim": {
-    "kinetic": "Kinetic"
+    "transform": ["reactify"]
   }
 }

@@ -2,6 +2,7 @@ var Kinetic = require('kinetic');
 var DOMPropertyOperations = require('react/lib/DOMPropertyOperations');
 var ReactBrowserComponentMixin = require('react/lib/ReactBrowserComponentMixin');
 var ReactComponent = require('react/lib/ReactComponent');
+var ReactUpdates = require('react/lib/ReactUpdates');
 var ReactDOMComponent = require('react/lib/ReactDOMComponent');
 var ReactComponentMixin = ReactComponent.Mixin;
 var KineticContainerMixin = require('./KineticContainer');
@@ -35,14 +36,14 @@ var Stage = util.createComponent('Stage',
   componentDidMount: function () {
     this._node = this.render();
 
-    var transaction = ReactComponent.ReactReconcileTransaction.getPooled();
+    var transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
     transaction.perform(
       this.mountKineticChildren,
       this,
       this.props.children,
       transaction
     );
-    ReactComponent.ReactReconcileTransaction.release(transaction);
+    ReactUpdates.ReactReconcileTransaction.release(transaction);
   },
 
   getKineticNode: function () {
