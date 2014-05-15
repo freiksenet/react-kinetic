@@ -16,8 +16,11 @@ function injectKineticProperties (kineticConfig,
   for (var type in kineticHierarchy) {
     var parents = kineticHierarchy[type];
     KineticProperty.getParents[type] = [type].concat(parents);
-    for (var parentKey in parents) {
-      KineticProperty.isChild[type + ':' + parents[parentKey]] = true;
+    for (var pi in parents) {
+      var parent = parents[pi];
+      var existingChildren = KineticProperty.getChildren[parent] || [];
+      existingChildren.push(type);
+      KineticProperty.getChildren[parent] = existingChildren;
     }
   }
 
@@ -26,9 +29,16 @@ function injectKineticProperties (kineticConfig,
     var propType = data.type;
     var defaultValue = data.defaultValue;
     var nodeType = data.nodeType;
-    KineticProperty.getPropertyName[propName] = nodeType;
-    KineticProperty.getPropertyType[propName] = propType;
-    KineticProperty.getPropertyDefault[propName] = defaultValue;
+
+    var children = [nodeType].concat(
+      KineticProperty.getChildren[nodeType] || []
+    );
+    for (var ci in children) {
+      var child = children[ci];
+      var existingProps = KineticProperty.getValidProps[child] || {};
+      existingProps[propName] = [propType, defaultValue];
+      KineticProperty.getValidProps[child] = existingProps;
+    }
   }
 
   for (var eventName in kineticEvents) {
@@ -51,29 +61,17 @@ var KineticProperty = {
   getParents: {},
 
   /**
-   * For a "$child:$parent" strings returns whether child is a descendentant of
-   * parent.
-   */
-  isChild: {},
-
-  /**
-   * Checks if that property is a valid Kinetic property and returns the
-   * Kinetic type in belongs to.
+   * Returns all parents for given Kinetic type.
    * @type {Object}
    */
-  getPropertyName: {},
+  getChildren: {},
 
   /**
-   * Returns type for given property. Valid types are String, Number, Boolean.
-   * @type: {Object}
+   * Returns a map of valid prop type for node type to [type, defaultValue]
+   * @type {Object}
    */
-  getPropertyType: {},
+  getValidProps: {},
 
-  /**
-   * Returns default value for given property.
-   * @type: {Object}
-   */
-  getPropertyDefault: {},
   /**
    * Returns Kinetic event name for event property
    *

@@ -74,10 +74,7 @@ var KineticComponentMixin = merge(ReactComponentMixin, {
 
   _isPropValid: function (prop) {
     var nodeName = this.nodeName;
-    var validForNode = KineticProperty.getPropertyName[prop];
-    return (validForNode &&
-            ((nodeName === validForNode) ||
-             (KineticProperty.isChild[nodeName + ":" + validForNode])));
+    return KineticProperty.getValidProps[nodeName][prop];
   },
 
   updateNodeProperties: function (prevProps) {
@@ -107,7 +104,7 @@ var KineticComponentMixin = merge(ReactComponentMixin, {
           node.off(eventName);
         }
         else if (validProp) {
-          node[propKey](KineticProperty.getDefaultValueForProperty[propKey]);
+          node[propKey](validProp[1]);
         }
       }
     }
