@@ -1,7 +1,8 @@
 react-kinetic
 =============
 
-Click on rectangles at http://freiksenet.github.io/react-kinetic/.
+Click on rectangles at http://freiksenet.github.io/react-kinetic/. A more
+elaborate example at https://github.com/freiksenet/react-kinetic-asteroids.
 
 An attempt to make React work with KineticJS HTML5 canvas library. The goal is
 to have similar declarative markup as normal React and to have similar data-flow
