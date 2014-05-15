@@ -1,4 +1,4 @@
-var KineticPropertyConfig = {};
+var KineticPropertyConfig = [];
 
 var KineticHierarchy = {
   Node: [],
@@ -48,11 +48,12 @@ var KineticEvents = {
 };
 
 function addToPropertyConfig (nodeType, propName, defaultValue) {
-  KineticPropertyConfig[propName] = {
+  KineticPropertyConfig.push({
+    propName: propName,
     type: undefined,
     nodeType: nodeType,
     defaultValue: defaultValue
-  };
+  });
 }
 
 // This is done in this way so that it's easire to import from grep over Kinetic

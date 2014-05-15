@@ -24,8 +24,9 @@ function injectKineticProperties (kineticConfig,
     }
   }
 
-  for (var propName in kineticConfig) {
-    var data = kineticConfig[propName];
+  for (var propI in kineticConfig) {
+    var data = kineticConfig[propI];
+    var propName = data.propName;
     var propType = data.type;
     var defaultValue = data.defaultValue;
     var nodeType = data.nodeType;

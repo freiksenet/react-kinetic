@@ -7,6 +7,7 @@ var Stage = ReactKinetic.Stage;
 var Layer = ReactKinetic.Layer;
 var Rect = ReactKinetic.Rect;
 var Star = ReactKinetic.Star;
+var Circle = ReactKinetic.Circle;
 
 var TestingComponent = React.createClass({
   getInitialState: function () {
@@ -50,6 +51,9 @@ React.renderComponent(
             outerRadius="50"
             fill="red"
             stroke="black" />
+      <Circle x="300" y="100"
+              radius="50"
+              stroke="red" />
     </Layer>
   </Stage>,
   document.getElementById("canvas")
