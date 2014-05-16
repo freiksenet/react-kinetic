@@ -1,14 +1,12 @@
 react-kinetic
 =============
 
-This is alpha software using unreleased React version. It will break.
-
 Click on rectangles at http://freiksenet.github.io/react-kinetic/. A more
 elaborate example at https://github.com/freiksenet/react-kinetic-asteroids.
 
-An attempt to make React work with KineticJS HTML5 canvas library. The goal is
-to have similar declarative markup as normal React and to have similar data-flow
-model.
+An attempt to make [React](http://facebook.github.io/react/) work with the
+[KineticJS](http://kineticjs.com/) HTML5 canvas library. The goal is to have
+similar declarative markup as normal React and to have similar data-flow model.
 
 Currently you can use all Kinetic components as React components and all Kinetic
 events are supported on them in same way as normal browser events are supported.
@@ -17,6 +15,25 @@ You can even inspect the components in React dev tools.
 
 Code from https://github.com/facebook/react-art really helped me to understand
 the inner workings of React to fix that.
+
+Installation
+------------
+
+**NOTE: This is alpha software using unreleased React version. It will break.**
+
+Requires late-ish (0.11.0) version of React, you'll have to clone react, and then do:
+
+    npm install; grunt
+    
+then in react-kinetic do:
+
+    npm install <path_to_react>/build/npm-react
+    
+Finally you can use reach-kinetic:
+
+    var React = require('react');
+    var ReactKinetic = require('./react-kinetic');
+
 
 User guide
 ----------
@@ -71,8 +88,7 @@ elements are: `Container`, `Layer`, `Group`, `Label`, `Shape`, `Rect`, `Circle`,
 [API docs](http://kineticjs.com/docs/index.html) for valid props.
 
 Currently there is no API to add react-kinetic components for custom KineticJS
-nodes, but it is planned and is not a big task to mount. See
-`KineticComponent.js` and `KineticFactory.js`.
+nodes, but I'm planning to add it in the future. See (KineticComponent.js)[src/KineticComponent.js] and (KineticFactory.js)[src/KineticComponent.js].
 
 ### Events
 
@@ -101,26 +117,23 @@ var KineticEvents = {
 };
 ```
 
-Event work in similar way as they work in normal React.See `demos/rectangles.js`
-for examples.
+Events work in similar way as they work in normal React. See
+[demo/rectangles.js](demo/rectangles.js) for examples.
 
-Internally events use .react namespace for Kinetic events, so this namespace
-shouldn't be used if you manually bind events, eg in `componentDidMount`.
+Internally, events use the `.react` namespace for Kinetic events,
+so this namespace shouldn't be used if you manually bind events,
+e.g. in `componentDidMount`.
 
 ### Some internals
 
-To get raw Kinetic node object, use `getKineticNode` method that all
+To get raw Kinetic node object, use the `getKineticNode` method which all
 react-kinetic components have.
 
 Notes
 -----
 
-Requires late-ish (0.11.0) version of React, you'll have to clone react, in it
-do`npm install; grunt` and then in react-kinetic do
-`npm install <path_to_react>/build/npm-react`.
-
-Due to limitation in React, you can't use namespaced properties in React jsx
-DOM. There are plans to fix that, but for now you have to assign aliases.
+Due to limitations in React, you can't use namespaced properties in the React JSX
+DOM. There are plans to fix that, but for now you have to assign aliases like this:
 
 ```javascript
 
@@ -133,7 +146,7 @@ React.renderComponent(
   </ReactKinetic.Stage>
 );
 
-// So do it like that
+// So do it like this, this will work
 var Stage = ReactKinetic.Stage;
 
 React.renderComponent(
