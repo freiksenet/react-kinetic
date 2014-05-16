@@ -1,6 +1,8 @@
 react-kinetic
 =============
 
+This is alpha software using unreleased React version. It will break.
+
 Click on rectangles at http://freiksenet.github.io/react-kinetic/. A more
 elaborate example at https://github.com/freiksenet/react-kinetic-asteroids.
 
@@ -140,5 +142,3 @@ React.renderComponent(
   </Stage>
 );
 ```
-
-This version is alpha so it can break unexpectedly.
