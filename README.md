@@ -88,7 +88,9 @@ elements are: `Container`, `Layer`, `Group`, `Label`, `Shape`, `Rect`, `Circle`,
 [API docs](http://kineticjs.com/docs/index.html) for valid props.
 
 Currently there is no API to add react-kinetic components for custom KineticJS
-nodes, but I'm planning to add it in the future. See (KineticComponent.js)[src/KineticComponent.js] and (KineticFactory.js)[src/KineticComponent.js].
+nodes, but I'm planning to add it in the future. See
+[KineticComponent.js](src/KineticComponent.js) and
+[KineticFactory.js](src/KineticComponent.js).
 
 ### Events
 
