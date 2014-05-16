@@ -23,7 +23,8 @@ Installation
 
 Requires late-ish (0.11.0) version of React, you'll have to clone react, and then do:
 
-    npm install; grunt
+    npm install
+    grunt
     
 then in react-kinetic do:
 
