@@ -1,6 +1,6 @@
 {
   "name": "react-kinetic",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Mikhail <freiksenet@gmail.com> Novikov",
   "description": "Using KineticJS library with React",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "url": "https://github.com/freiksenet/react-kinetic.git"
   },
   "dependencies": {
-    "react": "",
+    "react": "0.11.0",
     "kinetic": "5.0.6",
     "browserify": "3.41.x",
     "reactify": "0.13.1",

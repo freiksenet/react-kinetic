@@ -1,6 +1,8 @@
 react-kinetic
 =============
 
+KineticJS canvas library using React components.
+
 Click on rectangles at http://freiksenet.github.io/react-kinetic/. A more
 elaborate example at https://github.com/freiksenet/react-kinetic-asteroids.
 
@@ -19,22 +21,10 @@ the inner workings of React to fix that.
 Installation
 ------------
 
-**NOTE: This is alpha software using unreleased React version. It will break.**
-
-Requires late-ish (0.11.0) version of React, you'll have to clone react, and then do:
-
-    npm install
-    grunt
-    
-then in react-kinetic do:
-
-    npm install <path_to_react>/build/npm-react
-    
-Finally you can use reach-kinetic:
-
-    var React = require('react');
-    var ReactKinetic = require('./react-kinetic');
-
+```
+npm install react
+npm install react-kinetic
+```
 
 User guide
 ----------
@@ -131,30 +121,3 @@ e.g. in `componentDidMount`.
 
 To get raw Kinetic node object, use the `getKineticNode` method which all
 react-kinetic components have.
-
-Notes
------
-
-Due to limitations in React, you can't use namespaced properties in the React JSX
-DOM. There are plans to fix that, but for now you have to assign aliases like this:
-
-```javascript
-
-var ReactKinetic = require('react-kinetic');
-
-// That won't work
-React.renderComponent(
-  <ReactKinetic.Stage>
-    ...
-  </ReactKinetic.Stage>
-);
-
-// So do it like this, this will work
-var Stage = ReactKinetic.Stage;
-
-React.renderComponent(
-  <Stage>
-    ...
-  </Stage>
-);
-```
