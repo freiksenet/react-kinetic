@@ -9,19 +9,20 @@
     "url": "https://github.com/freiksenet/react-kinetic.git"
   },
   "dependencies": {
-    "react": "0.11.0",
-    "kinetic": "5.0.6",
     "browserify": "3.41.x",
-    "reactify": "0.13.1",
-    "jsxc": "0.10.0"
+    "envify": "^2.0.1",
+    "jsxc": "0.10.0",
+    "kinetic": "5.0.6",
+    "react": "0.11.0",
+    "reactify": "0.13.1"
   },
   "devDependencies": {
     "beefy": "1.1.0"
   },
-
   "main": "./react-kinetic",
-
   "browserify": {
-    "transform": ["reactify"]
+    "transform": [
+      "reactify"
+    ]
   }
 }
