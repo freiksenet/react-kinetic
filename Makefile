@@ -15,7 +15,6 @@ $(OUT):
 	mkdir $(OUT)
 
 $(deps_installed): $(package)
-	npm list > /dev/null 2> /dev/null; echo $$? && rm -rf deps
 	npm install --silent
 	touch $@
 
@@ -24,6 +23,9 @@ $(OUT)/react-kinetic-bundle.js: react-kinetic.js $(js_files) $(deps_installed) $
 
 $(OUT)/react-kinetic.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
 	$(browserify) . --standalone react-kinetic -o $@
+
+$(OUT)/react-kinetic.min.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
+	$(browserify) . -g uglifyify --standalone react-kinetic -o $@
 
 .PHONY: demo-rectangles
 demo-rectangles: $(deps_installed)
@@ -45,7 +47,7 @@ $(OUT)/demo: $(demofiles) $(OUT)
 $(OUT)/index.html: index.html $(OUT)
 	cp $< $@
 
-dist: $(OUT)/react-kinetic.js $(OUT)/react-kinetic-bundle.js $(OUT)/demo $(OUT)/index.html
+dist: $(OUT)/react-kinetic.js $(OUT)/react-kinetic.min.js $(OUT)/react-kinetic-bundle.js $(OUT)/demo $(OUT)/index.html
 
 .PHONY: clean-npm
 clean-npm:
