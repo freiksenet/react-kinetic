@@ -21,10 +21,15 @@ the inner workings of React to fix that.
 Installation
 ------------
 
+If you use browserify or webpack
+
 ```
 npm install react
 npm install react-kinetic
 ```
+
+If you use require.js or want to use it standalone, then standalone version is
+available in [Releases](https://github.com/freiksenet/react-kinetic/releases).
 
 If you want to build from source
 
