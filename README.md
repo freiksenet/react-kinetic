@@ -34,7 +34,7 @@ cd react-kinetic
 make
 ```
 
-`build/react-kinetic.js` will be a stasndalone dist, you can require
+`build/react-kinetic.js` will be a standalone dist, you can require
 react and react-kinetic from there.
 
 User guide
