@@ -26,6 +26,17 @@ npm install react
 npm install react-kinetic
 ```
 
+If you want to build from source
+
+```
+git clone https://github.com/freiksenet/react-kinetic.git
+cd react-kinetic
+make
+```
+
+`build/react-kinetic.js` will be a stasndalone dist, you can require
+react and react-kinetic from there.
+
 User guide
 ----------
 

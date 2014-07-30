@@ -62,3 +62,5 @@ pages: dist
 	git commit -m "Update pages"; \
 	git push $(origin) master:gh-pages --force && \
 	rm -rf .git
+
+.DEFAULT_GOAL := dist
