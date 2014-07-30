@@ -19,8 +19,11 @@ $(deps_installed): $(package)
 	npm install --silent
 	touch $@
 
-$(OUT)/react-kinetic.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
+$(OUT)/react-kinetic-bundle.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
 	$(browserify) . $(browserify_flags) -o $@
+
+$(OUT)/react-kinetic.js: react-kinetic.js $(js_files) $(deps_installed) $(OUT)
+	$(browserify) . --standalone react-kinetic -o $@
 
 .PHONY: demo-rectangles
 demo-rectangles: $(deps_installed)
@@ -42,7 +45,7 @@ $(OUT)/demo: $(demofiles) $(OUT)
 $(OUT)/index.html: index.html $(OUT)
 	cp $< $@
 
-dist: $(OUT)/react-kinetic.js $(OUT)/demo $(OUT)/index.html
+dist: $(OUT)/react-kinetic.js $(OUT)/react-kinetic-bundle.js $(OUT)/demo $(OUT)/index.html
 
 .PHONY: clean-npm
 clean-npm:
