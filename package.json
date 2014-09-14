@@ -9,8 +9,10 @@
     "url": "https://github.com/freiksenet/react-kinetic.git"
   },
   "dependencies": {
-    "kinetic": "5.0.6",
-    "react": "0.11.0"
+    "kinetic": "5.0.6"
+  },
+  "peerDependencies": {
+    "react": "^0.11.0"
   },
   "devDependencies": {
     "beefy": "1.1.0",
