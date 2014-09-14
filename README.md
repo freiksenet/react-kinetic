@@ -15,9 +15,6 @@ events are supported on them in same way as normal browser events are supported.
 
 You can even inspect the components in React dev tools.
 
-Code from https://github.com/facebook/react-art really helped me to understand
-the inner workings of React to fix that.
-
 Installation
 ------------
 
