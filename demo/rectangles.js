@@ -12,7 +12,8 @@ var Circle = ReactKinetic.Circle;
 var TestingComponent = React.createClass({
   getInitialState: function () {
     return {
-      colors: ['red', 'yellow', 'green']
+      colors: ['red', 'yellow', 'green'],
+      circles: [1, 2, 3, 4]
     };
   },
 
@@ -20,6 +21,12 @@ var TestingComponent = React.createClass({
     var colors = this.state.colors;
     colors = colors.slice(1).concat([colors[0]]);
     this.setState({colors: colors});
+  },
+
+  addCircle: function () {
+    this.setState({
+      circles: this.state.circles.slice(0, -1) //concat(this.state.circles.slice(-1)[0] + 1)
+    });
   },
 
   render: function () {
@@ -33,16 +40,28 @@ var TestingComponent = React.createClass({
               onClick={this.changeColors.bind(this, i)} />
       );
     }, this);
+
+    var circles = this.state.circles.map(function (pos, i) {
+      return (
+        <Circle key={3 + i}
+                x={pos*10 + 5} y={100}
+                fill="black"
+                radius={5}
+                onClick={this.addCircle} />
+      );
+    }, this);
+
     return (
       <Layer>
         {rects}
+        {circles}
       </Layer>
     );
   }
 });
 
 React.renderComponent(
-  <Stage height={300} width={300}>
+  <Stage height={1000} width={800}>
     <TestingComponent />
     <Layer>
       <Star x="150" y="150"
@@ -50,7 +69,7 @@ React.renderComponent(
             innerRadius="20"
             outerRadius="50"
             fill="red"
-            stroke="black" />
+            stroke="black"  />
       <Circle x="300" y="100"
               radius="50"
               stroke="red" />

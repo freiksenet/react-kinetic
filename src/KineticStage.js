@@ -1,61 +1,61 @@
+var React = require('react');
+var cloneWithProps = require('react/lib/cloneWithProps');
 var Kinetic = require('kinetic');
-var DOMPropertyOperations = require('react/lib/DOMPropertyOperations');
-var ReactBrowserComponentMixin = require('react/lib/ReactBrowserComponentMixin');
-var ReactComponent = require('react/lib/ReactComponent');
-var ReactUpdates = require('react/lib/ReactUpdates');
-var ReactDOMComponent = require('react/lib/ReactDOMComponent');
-var ReactComponentMixin = ReactComponent.Mixin;
-var KineticContainerMixin = require('./KineticContainer');
-var util = require('./util');
+var KineticBaseMixin = require('./KineticBaseMixin');
+var KineticContainerMixin = require('./KineticContainerMixin');
 
 /**
  * Core Kinetic stage.
- *
- * Only Kinetic component that has React DOM representation, thus it is not
- * mixing KineticComponentMixin.
  */
-var Stage = util.createComponent('Stage',
-  ReactDOMComponent.Mixin,
-  ReactComponentMixin,
-  KineticContainerMixin,
-  ReactBrowserComponentMixin, {
+var Stage = React.createClass({
+  displayName: 'Stage',
 
-  mountComponent: function(rootID, transaction, mountDepth) {
-    ReactComponentMixin.mountComponent.call(
-      this,
-      rootID,
-      transaction,
-      mountDepth
-    );
-    transaction.getReactMountReady().enqueue(this.componentDidMount, this);
+  mixins: [KineticBaseMixin, KineticContainerMixin],
 
-    var idMarkup = DOMPropertyOperations.createMarkupForID(rootID);
-    return '<div ' + idMarkup + '></div>';
+  propTypes: {
+    width: React.PropTypes.number,
+    height: React.PropTypes.number
   },
 
   componentDidMount: function () {
-    this._node = this.render();
+    // So kinetic requires container to be available on creation time, but
+    // as we need to add nodes before the DOM is available, we use 'fake' node
+    // and then copy children to real one.
+    var oldNode = this.getKineticNode();
+    // Kinetic modifies children array in place
+    var children = oldNode.getChildren().slice();
 
-    var transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
-    transaction.perform(
-      this.mountKineticChildren,
-      this,
-      this.props.children,
-      transaction
-    );
-    ReactUpdates.ReactReconcileTransaction.release(transaction);
+    this._node = this.createKineticNode(this.refs.canvas.getDOMNode());
+    this.updateNodeProperties({});
+
+    children.forEach(function (child) {
+      child.moveTo(this.getKineticNode());
+    }.bind(this));
+
+    oldNode.destroy();
   },
 
-  getKineticNode: function () {
-    return this._node;
+  createKineticNode: function (container) {
+    return new Kinetic.Stage({
+      container: container
+    });
   },
 
   render: function () {
-    return new Kinetic.Stage({
-      container: this.getDOMNode(),
-      width: this.props.width,
-      height: this.props.height
-    });
+    return React.withContext({
+      kineticContainer: this.getKineticNode()
+    }, function () {
+      var children = React.Children.map(
+        this.props.children,
+        function (child) {
+          return cloneWithProps(child, {});
+        }.bind(this)
+      );
+      return React.DOM.div({},
+        React.DOM.div({ref: 'canvas'}),
+        children
+      );
+    }.bind(this));
   }
 });
 

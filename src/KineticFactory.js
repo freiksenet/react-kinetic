@@ -1,25 +1,33 @@
+var React = require('react');
 var Kinetic = require('kinetic');
-var ReactComponent = require('react/lib/ReactComponent');
-var ReactComponentMixin = ReactComponent.Mixin;
-var KineticComponentMixin = require('./KineticComponent');
-var KineticContainerMixin = require('./KineticContainer');
+var KineticBaseMixin = require('./KineticBaseMixin');
+var KineticComponentMixin = require('./KineticComponentMixin');
+var KineticContainerMixin = require('./KineticContainerMixin');
+var KineticLayerMixin = require('./KineticLayerMixin');
 var util = require('./util');
 
 var KineticFactory = {
-  createClass: function (name, spec) {
-    var baseMixins = [ReactComponentMixin, KineticComponentMixin];
-    var additionalMixins = spec.mixins || [];
-    var args = [name].concat(baseMixins, additionalMixins, [spec]);
-    return util.createComponent.apply(this, args);
-  },
+  createSimpleClass: function (kineticClass, container, layer) {
+    var mixins = [KineticBaseMixin, KineticComponentMixin];
 
-  createSimpleClass: function (kineticClass, container) {
-    return KineticFactory.createClass(kineticClass, {
-      mixins: container ? [KineticContainerMixin] : [],
+    if (container) {
+      mixins.push(KineticContainerMixin);
+    }
 
-      render: function () {
+    if (layer) {
+      mixins.push(KineticLayerMixin);
+    }
+
+    return React.createClass({
+      displayName: kineticClass,
+
+      mixins: mixins,
+
+      createKineticNode: function () {
         return new Kinetic[kineticClass];
-      }
+      },
+
+      render: util.nodeRenderer
     });
   }
 };

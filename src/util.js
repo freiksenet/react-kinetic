@@ -1,20 +1,11 @@
-var mixInto = require('react/lib/mixInto');
-var ReactDescriptor = require('react/lib/ReactDescriptor');
+var React = require('react');
 
 module.exports = {
-  createComponent: function (name) {
-    var ReactKineticComponent = function (descriptor) {
-      this.construct(descriptor);
-    };
-    ReactKineticComponent.displayName = name;
-    for (var i = 1, l = arguments.length; i < l; i++) {
-      mixInto(ReactKineticComponent, arguments[i]);
+  nodeRenderer: function () {
+    if (this.nodeRender) {
+      return this.nodeRender();
+    } else {
+      return null;
     }
-
-    var ConvenienceConstructor = ReactDescriptor.createFactory(
-      ReactKineticComponent
-    );
-
-    return ConvenienceConstructor;
-    }
+  }
 };
