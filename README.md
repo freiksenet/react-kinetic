@@ -48,7 +48,7 @@ Minimal example:
 /** @jsx React.DOM */
 
 var React = require('react');
-var ReactKinetic = require('./react-kinetic');
+var ReactKinetic = require('react-kinetic');
 
 var Stage = ReactKinetic.Stage;
 var Layer = ReactKinetic.Layer;
@@ -57,9 +57,9 @@ var Rect = ReactKinetic.Rect;
 var TestingComponent = React.createClass({
   render: function () {
     return (
-      <Stage height="300" width="300">
+      <Stage height={300} width={300}>
         <Layer>
-          <Rect x="100" y="100" width="50" height="50" fill="black" />
+          <Rect x={100} y={100} width={50} height={50} fill="black" />
         </Layer>
       </Stage>
     );
@@ -68,7 +68,7 @@ var TestingComponent = React.createClass({
 
 React.renderComponent(
   <TestingComponent />,
-  document.getElementById('react-kinetic')
+  document.body
 );
 ```
 
