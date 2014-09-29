@@ -35,6 +35,10 @@ demo-rectangles: $(deps_installed)
 demo-plane-game: $(deps_installed)
 	$(beefy) demo/plane-game.js --live --browserify $(browserify) -- $(browserify_flags) -d
 
+.PHONY: demo-smoke-test
+demo-smoke-test: $(deps_installed)
+	$(beefy) demo/smoke-test.js --live --browserify $(browserify) -- $(browserify_flags) -d
+
 # Demo dist stuff
 demofiles := $(wildcard demo/*)
 
