@@ -20,6 +20,8 @@
     "react": "^0.11.0"
   },
   "devDependencies": {
+    "kinetic": "5.0.6",
+    "react": "^0.11.0",
     "jshint": "^2.5.6",
     "jsx-loader": "^0.11.2",
     "karma-chrome-launcher": "^0.1.5",
@@ -28,7 +30,7 @@
     "karma-jasmine": "^0.1.5",
     "karma-webpack": "^1.2.2",
     "webpack": "^1.4.4",
-    "webpack-dev-server": "^1.6.5"
+    "webpack-dev-server": "^1.6.5",
   },
   "main": "./react-kinetic",
   "scripts": {

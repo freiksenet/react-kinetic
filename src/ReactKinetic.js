@@ -1,3 +1,5 @@
+"use strict";
+
 var KineticProperty = require('./KineticProperty');
 var KineticPropertyConfig = require('./KineticPropertyConfig');
 

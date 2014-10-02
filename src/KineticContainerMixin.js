@@ -1,5 +1,6 @@
+"use strict";
+
 var React = require('react');
-var Kinetic = require('kinetic');
 var cloneWithProps = require('react/lib/cloneWithProps');
 
 var KineticContainerMixin = {

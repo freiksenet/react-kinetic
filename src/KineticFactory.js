@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react');
 var Kinetic = require('kinetic');
 var KineticBaseMixin = require('./KineticBaseMixin');

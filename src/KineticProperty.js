@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Inject Kinetic property infos to KineticProperty.
  *

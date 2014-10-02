@@ -1,4 +1,5 @@
-var Kinetic = require('kinetic');
+"use strict";
+
 var KineticProperty = require('./KineticProperty').KineticProperty;
 
 var KineticBaseMixin = {
@@ -39,8 +40,6 @@ var KineticBaseMixin = {
     var eventName;
     var nextProps = this.props;
     var node = this.getKineticNode();
-    var nodeName = this.nodeName;
-    var validNodes = KineticProperty.getParents[nodeName];
 
     for (propKey in prevProps) {
       eventName = KineticProperty.getEventName[propKey];

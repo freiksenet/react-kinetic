@@ -1,4 +1,4 @@
-var React = require('react');
+"use strict";
 
 module.exports = {
   nodeRenderer: function () {

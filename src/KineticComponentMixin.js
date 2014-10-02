@@ -1,5 +1,6 @@
+"use strict";
+
 var React = require('react');
-var ReactComponentMixin = require('react/lib/ReactComponent').Mixin;
 
 /**
  * A base mixin for Kinetic nodes.

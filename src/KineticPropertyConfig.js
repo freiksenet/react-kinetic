@@ -1,3 +1,5 @@
+"use strict";
+
 var KineticPropertyConfig = [];
 
 var KineticHierarchy = {
