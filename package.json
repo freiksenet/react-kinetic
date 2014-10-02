@@ -5,27 +5,32 @@
   "description": "Using KineticJS library with React",
   "keywords": [
     "canvas",
+    "kinetic",
     "react",
-    "react-component"
+    "react-component",
+    "browser"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/freiksenet/react-kinetic.git"
   },
-  "dependencies": {
-    "kinetic": "5.0.6"
-  },
   "peerDependencies": {
+    "kinetic": "5.0.6",
     "react": "^0.11.0"
   },
   "devDependencies": {
-    "beefy": "1.1.0",
-    "browserify": "3.41.x",
-    "envify": "^2.0.1",
-    "jsxc": "0.10.0",
-    "reactify": "0.13.1",
-    "uglifyify": "^2.5.0"
+    "jsx-loader": "^0.11.2",
+    "webpack": "^1.4.4",
+    "webpack-dev-server": "^1.6.5"
   },
-  "main": "./react-kinetic"
+  "main": "./react-kinetic",
+  "scripts": {
+    "clean": "rm -r build",
+    "umd": "webpack",
+    "demo": "npm run umd && cp -r demo build/ && cp index.html build/",
+    "umd-min": "webpack --config webpack.config.min.js",
+    "start": "webpack-dev-server -d --colors --progress",
+    "gh-pages": "./scripts/gh-pages.sh"
+  }
 }

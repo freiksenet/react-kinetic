@@ -21,8 +21,13 @@ Installation
 If you use browserify or webpack
 
 ```
-npm install react
-npm install react-kinetic
+npm install react kinetic react-kinetic
+```
+
+Then just require it
+
+```js
+require('react-kinetic');
 ```
 
 If you use require.js or want to use it standalone, then standalone version is
@@ -33,11 +38,14 @@ If you want to build from source
 ```
 git clone https://github.com/freiksenet/react-kinetic.git
 cd react-kinetic
-make
+npm run umd
 ```
 
 `build/react-kinetic.js` will be a standalone dist, you can require
 react and react-kinetic from there.
+ReactKinetic
+Note that in all cases you need to have react and kinetic available, so have
+them included in `<script>` tag (or available to RequireJS if you use AMD).
 
 User guide
 ----------
@@ -50,18 +58,14 @@ Minimal example:
 var React = require('react');
 var ReactKinetic = require('react-kinetic');
 
-var Stage = ReactKinetic.Stage;
-var Layer = ReactKinetic.Layer;
-var Rect = ReactKinetic.Rect;
-
 var TestingComponent = React.createClass({
   render: function () {
     return (
-      <Stage height={300} width={300}>
-        <Layer>
-          <Rect x={100} y={100} width={50} height={50} fill="black" />
-        </Layer>
-      </Stage>
+      <ReactKinetic.Stage height={300} width={300}>
+        <ReactKinetic.Layer>
+          <ReactKinetic.Rect x={100} y={100} width={50} height={50} fill="black" />
+        </ReactKinetic.Layer>
+      </ReactKinetic.Stage>
     );
   }
 });
@@ -77,9 +81,9 @@ name. All the parameters available for Kinetic objects are valid props for
 corresponding react-kinetic components, unless otherwise noted.
 
 Every react-kinetic component (or components that use react-kinetic components)
-must be wrappe in `Stage`. `Stage` is the only react-kinetic element that has actual
-DOM representation. Unlike `Kinetic.Stage`, `Stage` will ignore `container`
-passed to it, because it constructs container by itself.
+must be wrappe in `Stage`. `Stage` is the only react-kinetic element that has
+actual DOM representation. Unlike `Kinetic.Stage`, `Stage` will ignore
+`container` passed to it, because it constructs container by itself.
 
 `Stage`'s only valid children are `Layer` components. `Layer`s are currently
 only components that handle redrawing and currently they redraw on all changes

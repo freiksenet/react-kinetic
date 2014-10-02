@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var ReactKinetic = require('./react-kinetic');
+var ReactKinetic = require('../react-kinetic');
 
 var Stage = ReactKinetic.Stage;
 var Layer = ReactKinetic.Layer;

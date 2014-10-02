@@ -16,7 +16,6 @@ var KineticBaseMixin = {
   },
 
   componentWillUnmount: function () {
-    console.log('unm');
     this.getKineticNode().destroy();
   },
 

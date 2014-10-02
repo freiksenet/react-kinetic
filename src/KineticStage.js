@@ -33,9 +33,15 @@ var Stage = React.createClass({
     }.bind(this));
 
     oldNode.destroy();
+  },componentWillMount: function () {
+    this._node = this.createKineticNode();
+    this.nodeName = this._node.className || this._node.nodeType;
   },
 
   createKineticNode: function (container) {
+    if (!container) {
+      container = document.createElement("div");
+    }
     return new Kinetic.Stage({
       container: container
     });
