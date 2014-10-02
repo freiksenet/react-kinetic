@@ -1,6 +1,8 @@
 react-kinetic
 =============
 
+![Build status](https://travis-ci.org/freiksenet/react-kinetic.svg?branch=master)
+
 KineticJS canvas library using React components.
 
 Click on rectangles at http://freiksenet.github.io/react-kinetic/. A more
