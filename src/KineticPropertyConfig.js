@@ -58,7 +58,7 @@ function addToPropertyConfig (nodeType, propName, defaultValue) {
   });
 }
 
-// This is done in this way so that it's easire to import from grep over Kinetic
+// This is done in this way so that it's easier to import from grep over Kinetic
 // code.
 addToPropertyConfig('Node', 'x', 0);
 addToPropertyConfig('Node', 'y', 0);
