@@ -10,18 +10,24 @@ describe('Stage', function () {
 });
 
 function renderSingle(type, component) {
-  var stage = TestUtils.renderIntoDocument(
+  var stageInstance = TestUtils.renderIntoDocument(
     RK.Stage(null,
       RK.Layer(null, component)));
-  return TestUtils.findRenderedComponentWithType(stage, type);
+  return TestUtils.findRenderedComponentWithType(stageInstance, type);
 }
 
 describe('Circle', function () {
   it('can render Circle', function () {
-    var rendered = renderSingle(RK.Circle, RK.Circle({x: 10, y: 20, radius: 5, stroke: 'red'}));
-    expect(rendered.props.x).toBe(10);
-    expect(rendered.props.y).toBe(20);
-    expect(rendered.props.radius).toBe(5);
+    var stageInstance = TestUtils.renderIntoDocument(
+      RK.Stage(null,
+        RK.Layer(null, RK.Circle({id: 1, x: 10, y: 20, radius: 5, stroke: 'red'}))));
+    var circleInstance = TestUtils.findRenderedComponentWithType(stageInstance, RK.Circle);
+    var kineticCircle = circleInstance.getKineticNode();
+    expect(kineticCircle.x()).toBe(10);
+    expect(kineticCircle.y()).toBe(20);
+    expect(kineticCircle.radius()).toBe(5);
+    expect(kineticCircle.stroke()).toBe('red');
+    expect(kineticCircle.id()).toBe(1);
   });
 });
 
@@ -32,6 +38,7 @@ describe('Text', function () {
   });
   it('can render Text with size', function () {
     var rendered = renderSingle(RK.Text, RK.Text({
+      id: "text1",
       x: 10,
       y: 15,
       text: 'Simple Text',
