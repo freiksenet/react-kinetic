@@ -9,11 +9,11 @@ describe('Stage', function () {
   });
 });
 
-function renderSingle(type, component) {
+function renderIntoStage(component) {
   var stageInstance = TestUtils.renderIntoDocument(
     RK.Stage(null,
       RK.Layer(null, component)));
-  return TestUtils.findRenderedComponentWithType(stageInstance, type);
+  return stageInstance;
 }
 
 describe('Circle', function () {
@@ -32,12 +32,17 @@ describe('Circle', function () {
 });
 
 describe('Text', function () {
+
   it('can render Text with no size', function () {
-    var rendered = renderSingle(RK.Text, RK.Text(null, "Hello, world"));
-    expect(rendered.getDOMNode().textContent).toEqual('Hello, world');
+    var stageInstance = renderIntoStage(RK.Text({text: 'Hello, world'}));
+    var renderedText = TestUtils.findRenderedComponentWithType(stageInstance, RK.Text);
+    var kineticInstance = renderedText.getKineticNode();
+    expect(kineticInstance.text()).toEqual('Hello, world');
+    expect(kineticInstance.getText()).toEqual('Hello, world');
   });
+
   it('can render Text with size', function () {
-    var rendered = renderSingle(RK.Text, RK.Text({
+    var stageInstance = renderIntoStage(RK.Text, RK.Text({
       id: "text1",
       x: 10,
       y: 15,
@@ -45,15 +50,17 @@ describe('Text', function () {
       fontSize: 30,
       fontFamily: 'Calibri',
       fill: 'green'
-    }, "Hello, world"));
-    expect(rendered.getDOMNode().textContent).toEqual('Hello, world');
+    }, 'Hello, world'));
+    var renderedText = TestUtils.findRenderedComponentWithType(stageInstance, RK.Text);
+    var kineticInstance = renderedText.getKineticNode();
+    expect(kineticInstance.text()).toEqual('Hello, world');
   });
 });
 
 describe('TextPath', function () {
   it('can render TextPath', function () {
     var txt = 'All the world\'s a stage, and all the men and women merely players.';
-    var rendered = renderSingle(RK.TextPath, RK.TextPath({
+    var stageInstance = renderIntoStage(RK.TextPath({
       x: 100,
       y: 50,
       fill: '#333',
@@ -62,6 +69,9 @@ describe('TextPath', function () {
       text: txt,
       data: 'M10,10 C0,0 10,150 100,100 S300,150 400,50'
     }));
-    expect(rendered.props.text).toBe(txt);
+    var renderedTextPath = TestUtils.findRenderedComponentWithType(stageInstance, RK.TextPath);
+    expect(renderedTextPath).not.toBeNull();
+    var kineticInstance = renderedTextPath.getKineticNode();
+    expect(kineticInstance.getText()).toEqual(txt);
   });
 });
