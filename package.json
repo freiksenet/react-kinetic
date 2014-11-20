@@ -1,6 +1,6 @@
 {
   "name": "react-kinetic",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Mikhail <freiksenet@gmail.com> Novikov",
   "description": "Using KineticJS library with React",
   "keywords": [
