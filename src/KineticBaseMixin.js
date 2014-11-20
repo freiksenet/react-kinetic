@@ -4,8 +4,9 @@ var KineticProperty = require('./KineticProperty').KineticProperty;
 
 var KineticBaseMixin = {
   componentWillMount: function () {
-    this._node = this.createKineticNode();
-    this.nodeName = this._node.className || this._node.nodeType;
+    this._propValidCache = {};
+    var initialProps = this._getRequiredUpdates({}, this.props);
+    this._node = this.createKineticNode(initialProps.properties);
   },
 
   componentDidMount: function () {
@@ -25,60 +26,76 @@ var KineticBaseMixin = {
   },
 
   _isPropValid: function (prop) {
-    var nodeName = this.nodeName;
-    return KineticProperty.getValidProps[nodeName][prop];
+    return KineticProperty.getValidProps[this.constructor.displayName][prop];
+  },
+
+  _getValidProp: function (propKey) {
+    if (!this._propValidCache.hasOwnProperty(propKey)) {
+      this._propValidCache[propKey] = this._isPropValid(propKey);
+    }
+    return this._propValidCache[propKey];
+  },
+
+  _getRequiredUpdates: function (oldProps, newProps) {
+    var updates = {
+      eventsOn: {},
+      eventsOff: {},
+      properties: {}
+    };
+
+    var propKey;
+    var validEvent;
+    var validProp;
+
+    for (propKey in oldProps) {
+      validEvent = KineticProperty.getEventName[propKey];
+      validProp = this._getValidProp(propKey);
+      if (!newProps.hasOwnProperty(propKey)) {
+        if (validEvent) {
+          updates.eventsOff[validEvent] = true;
+        } else if (validProp) {
+          updates.properties[propKey] = validProp[1];
+        }
+      }
+    }
+
+    for (propKey in newProps) {
+      validEvent = KineticProperty.getEventName[propKey];
+      validProp = this._getValidProp(propKey);
+      if (validEvent) {
+        if (oldProps.hasOwnProperty(propKey)) {
+          if (oldProps[propKey] !== newProps[propKey]) {
+            updates.eventsOff[validEvent] = true;
+            updates.eventsOn[validEvent] = newProps[propKey];
+          }
+        } else {
+          updates.eventsOn[validEvent] = newProps[propKey];
+        }
+      } else if (validProp) {
+        if (!oldProps.hasOwnProperty(propKey) ||
+            oldProps[propKey] !== newProps[propKey]) {
+          updates.properties[propKey] = newProps[propKey];
+        }
+      }
+    }
+
+    return updates;
   },
 
   updateNodeProperties: function (prevProps) {
-    if (!this._propValidCache) {
-      this._propValidCache = {};
-    }
-    var propCache = this._propValidCache;
-
-    var propKey;
-    var validProp;
-    var eventName;
-    var nextProps = this.props;
     var node = this.getKineticNode();
+    var updates = this._getRequiredUpdates(prevProps, this.props);
 
-    for (propKey in prevProps) {
-      eventName = KineticProperty.getEventName[propKey];
-      if (!propCache.hasOwnProperty(propKey)) {
-        propCache[propKey] = this._isPropValid(propKey);
-      }
-      validProp = propCache[propKey];
-
-      if (!nextProps.hasOwnProperty(propKey) &&
-          prevProps.hasOwnProperty(propKey)) {
-        if (eventName) {
-          node.off(eventName);
-        }
-        else if (validProp) {
-          node[propKey](validProp[1]);
-        }
-      }
+    var eventName;
+    for (eventName in updates.eventsOff) {
+      node.off(eventName);
     }
 
-    for (propKey in nextProps) {
-      eventName = KineticProperty.getEventName[propKey];
-      if (!propCache.hasOwnProperty(propKey)) {
-        propCache[propKey] = this._isPropValid(propKey);
-      }
-      validProp = propCache[propKey];
-
-      var nextProp = nextProps[propKey];
-      var prevProp = prevProps[propKey];
-
-      if (eventName) {
-        node.off(eventName);
-        node.on(eventName, nextProp);
-      }
-      else if (validProp) {
-        if (nextProps.hasOwnProperty(propKey) && nextProp !== prevProp) {
-          node[propKey](nextProp);
-        }
-      }
+    for (eventName in updates.eventsOn) {
+      node.on(eventName, updates.eventsOn[eventName]);
     }
+
+    node.setAttrs(updates.properties);
   }
 };
 

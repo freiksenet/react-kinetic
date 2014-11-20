@@ -39,7 +39,10 @@ function injectKineticProperties (kineticConfig,
     for (var ci in children) {
       var child = children[ci];
       var existingProps = KineticProperty.getValidProps[child] || {};
-      existingProps[propName] = [propType, defaultValue];
+      existingProps[propName] = {
+        type: propType,
+        defaultValue: defaultValue
+      };
       KineticProperty.getValidProps[child] = existingProps;
     }
   }

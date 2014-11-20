@@ -39,7 +39,7 @@
     "demo": "npm run umd && cp -r demo build/ && cp index.html build/",
     "umd-min": "webpack --config webpack.config.min.js",
     "start": "webpack-dev-server -d --colors --progress",
-    "test": "jshint ./react-kinetic.js ./src/*.js && karma start --single-run --browsers Firefox",
+    "test": "jshint ./react-kinetic.js ./src/*.js ./test/*.js && karma start --single-run --browsers Firefox",
     "test-watch": "karma start",
     "gh-pages": "./scripts/gh-pages.sh"
   }

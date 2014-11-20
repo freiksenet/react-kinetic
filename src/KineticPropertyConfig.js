@@ -23,7 +23,7 @@ var KineticHierarchy = {
   Line: ['Shape', 'Node'],
   Sprite: ['Shape', 'Node'],
   Path: ['Shape', 'Node'],
-  TextPath: ['Shape', 'Node'],
+  TextPath: ['Shape', 'Node', 'Path', 'Text'],
   RegularPolygon: ['Shape', 'Node'],
   Star: ['Shape', 'Node'],
   Tag: ['Shape', 'Node']

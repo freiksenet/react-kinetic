@@ -25,8 +25,8 @@ var KineticFactory = {
 
       mixins: mixins,
 
-      createKineticNode: function () {
-        return new Kinetic[kineticClass]();
+      createKineticNode: function (properties) {
+        return new Kinetic[kineticClass](properties);
       },
 
       render: util.nodeRenderer

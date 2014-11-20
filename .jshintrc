@@ -8,5 +8,8 @@
   "newcap": true,
   "maxlen": 80,
   "globalstrict": true,
-  "predef": ["module", "require", "window", "document"]
+  "predef": [
+    "module", "require", "window", "document",
+    "describe", "it", "expect"
+  ]
 }

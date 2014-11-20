@@ -27,7 +27,7 @@ var Stage = React.createClass({
     // Kinetic modifies children array in place
     var children = oldNode.getChildren().slice();
 
-    this._node = this.createKineticNode(this.refs.canvas.getDOMNode());
+    this._node = this.createKineticNode({}, this.refs.canvas.getDOMNode());
     this.updateNodeProperties({});
 
     children.forEach(function (child) {
@@ -35,12 +35,9 @@ var Stage = React.createClass({
     }.bind(this));
 
     oldNode.destroy();
-  },componentWillMount: function () {
-    this._node = this.createKineticNode();
-    this.nodeName = this._node.className || this._node.nodeType;
   },
 
-  createKineticNode: function (container) {
+  createKineticNode: function (props, container) {
     if (!container) {
       container = document.createElement("div");
     }

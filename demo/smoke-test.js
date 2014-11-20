@@ -99,26 +99,19 @@ React.renderComponent(
       <Wedge x="30" y="225" radius="40"
              fill="red" stroke="black" strokeWidth="5"
              angle="60" rotation="-120" />
+      <Text x="10" y="15" text="Text" fontSize="30" fontFamily="Calibri"
+            fill="green" />
+      <TextPath x="100" y="50" fill="#333"
+                fontSize="24" fontFamily="Arial"
+                text="All the world's a stage, and all the men and women merely players."
+                data="M10,10 C0,0 10,150 100,100 S300,150 400,50" />
     </Layer>
   </Stage>,
   document.getElementById("canvas")
 );
 
 /*
- <Label x="100" y="100" draggable="true">
- <Tag fill="#bbb" stroke="#333"
- shadowColor="black" shadowBlur="10"
- shadowOffsetX="10" shadowOffsetY="10" shadowOpacity="0.2"
- lineJoin="round"
- pointerDirection="up" pointerWidth="20" pointerHeight="20"
- cornerRadius="5" />
- <Text text="Label Text" fontSize="50" lineHeight="1.2" padding="10" fill="blue" />
- </Label>
- <Text x="10" y="15" text="Text" fontSize="30" fontFamily="Calibri" fill="green" />
- <TextPath x="100" y="50" fill="#333"
- fontSize="24" fontFamily="Arial"
- text="All the world's a stage, and all the men and women merely players."
- data="M10,10 C0,0 10,150 100,100 S300,150 400,50" />-->
+-->
 
  This smoke-test is not complete.
 

@@ -1,3 +1,5 @@
+"use strict";
+
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var RK = require('../react-kinetic');
@@ -20,8 +22,14 @@ describe('Circle', function () {
   it('can render Circle', function () {
     var stageInstance = TestUtils.renderIntoDocument(
       RK.Stage(null,
-        RK.Layer(null, RK.Circle({id: 1, x: 10, y: 20, radius: 5, stroke: 'red'}))));
-    var circleInstance = TestUtils.findRenderedComponentWithType(stageInstance, RK.Circle);
+        RK.Layer(null, RK.Circle({
+            id: 1, x: 10, y: 20,
+            radius: 5, stroke: 'red'
+        }))));
+    var circleInstance = TestUtils.findRenderedComponentWithType(
+      stageInstance,
+      RK.Circle
+    );
     var kineticCircle = circleInstance.getKineticNode();
     expect(kineticCircle.x()).toBe(10);
     expect(kineticCircle.y()).toBe(20);
@@ -35,31 +43,42 @@ describe('Text', function () {
 
   it('can render Text with no size', function () {
     var stageInstance = renderIntoStage(RK.Text({text: 'Hello, world'}));
-    var renderedText = TestUtils.findRenderedComponentWithType(stageInstance, RK.Text);
+    var renderedText = TestUtils.findRenderedComponentWithType(
+      stageInstance,
+      RK.Text
+    );
     var kineticInstance = renderedText.getKineticNode();
     expect(kineticInstance.text()).toEqual('Hello, world');
     expect(kineticInstance.getText()).toEqual('Hello, world');
   });
 
   it('can render Text with size', function () {
-    var stageInstance = renderIntoStage(RK.Text, RK.Text({
-      id: "text1",
+    var stageInstance = renderIntoStage(RK.Text({
       x: 10,
       y: 15,
-      text: 'Simple Text',
+      text: 'Hello, world',
       fontSize: 30,
       fontFamily: 'Calibri',
       fill: 'green'
-    }, 'Hello, world'));
-    var renderedText = TestUtils.findRenderedComponentWithType(stageInstance, RK.Text);
+    }));
+    var renderedText = TestUtils.findRenderedComponentWithType(
+      stageInstance,
+      RK.Text
+    );
     var kineticInstance = renderedText.getKineticNode();
     expect(kineticInstance.text()).toEqual('Hello, world');
   });
 });
 
+describe('Text2', function () {
+
+});
+
 describe('TextPath', function () {
   it('can render TextPath', function () {
-    var txt = 'All the world\'s a stage, and all the men and women merely players.';
+    var txt = (
+      'All the world\'s a stage, and all the men and women merely players.'
+    );
     var stageInstance = renderIntoStage(RK.TextPath({
       x: 100,
       y: 50,
@@ -69,7 +88,10 @@ describe('TextPath', function () {
       text: txt,
       data: 'M10,10 C0,0 10,150 100,100 S300,150 400,50'
     }));
-    var renderedTextPath = TestUtils.findRenderedComponentWithType(stageInstance, RK.TextPath);
+    var renderedTextPath = TestUtils.findRenderedComponentWithType(
+      stageInstance,
+      RK.TextPath
+    );
     expect(renderedTextPath).not.toBeNull();
     var kineticInstance = renderedTextPath.getKineticNode();
     expect(kineticInstance.getText()).toEqual(txt);
